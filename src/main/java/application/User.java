@@ -1,3 +1,5 @@
+package application;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -33,9 +35,9 @@ public void buyCards(){
             }
 
             for(Card card : stack){
-                if (card instanceof MonsterCard) { // Check if the card is an instance of MonsterCard
-                    MonsterCard monsterCard = (MonsterCard) card; // Cast it to MonsterCard
-                    monsterCard.printCard(); // Call the printCard() method on the MonsterCard object
+                if (card instanceof MonsterCard) { // Check if the card is an instance of application.MonsterCard
+                    MonsterCard monsterCard = (MonsterCard) card; // Cast it to application.MonsterCard
+                    monsterCard.printCard(); // Call the printCard() method on the application.MonsterCard object
                 }
             }
         } else {

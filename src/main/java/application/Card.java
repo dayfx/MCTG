@@ -1,3 +1,5 @@
+package application;
+
 public class Card {
 
     public  int damage;
