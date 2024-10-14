@@ -15,9 +15,9 @@ public class Server {
     private int port;
     private Router router;
 
-    public Server(int port, Router router) {
+    public Server(int port) {
         this.port = port;
-        this.router = router;
+        this.router = new Router();
     }
 
     public void start() throws IOException {

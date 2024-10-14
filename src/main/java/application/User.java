@@ -6,10 +6,10 @@ import java.util.Scanner;
 
 public class User {
 
-    final private String username;
-    final private String password;
+    private String username;
+    private String password;
 
-    User(String username, String password) {
+    public User(String username, String password) {
     this.username = username;
     this.password = password;
 }

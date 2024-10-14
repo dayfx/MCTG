@@ -4,6 +4,7 @@ import server.http.ContentType;
 import server.http.HttpStatus;
 import server.server.Request;
 import server.server.Response;
+import server.server.UserService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,6 +38,8 @@ public class RequestHandler implements Runnable {
                     "[]"
                 );
             } else {
+                UserService userService = new UserService();
+                this.router.addService("/users", userService);
                 response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
             }
             printWriter.write(response.get());
