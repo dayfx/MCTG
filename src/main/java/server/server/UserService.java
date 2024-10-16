@@ -11,7 +11,6 @@ public class UserService implements Service{
         String method = String.valueOf(request.getMethod());
         if(method.equals("POST")) {
             try {
-                System.out.println(request.getBody());
 
                 ObjectMapper objectMapper = new ObjectMapper();
 

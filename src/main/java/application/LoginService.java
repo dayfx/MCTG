@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class LoginService{
 
+    // mock up (without curl)
     private Scanner scanner;
 
     public LoginService(){

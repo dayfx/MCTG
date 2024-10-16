@@ -37,12 +37,18 @@ public class RequestHandler implements Runnable {
                     ContentType.JSON,
                     "[]"
                 );
+                printWriter.write(response.get());
             } else {
-                UserService userService = new UserService();
-                this.router.addService("/users", userService);
-                response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
+                String pathParts = String.valueOf(request.getPathParts());
+
+                if(pathParts.equals("[users]")){
+                    UserService userService = new UserService();
+                    this.router.addService("/users", userService);
+                    response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
+                    printWriter.write(response.get());
+                }
             }
-            printWriter.write(response.get());
+
         } catch (IOException e) {
             System.err.println(Thread.currentThread().getName() + " Error: " + e.getMessage());
         }catch (Exception e) {

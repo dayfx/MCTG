@@ -10,12 +10,12 @@ public class Main {
 
         System.out.println("Program Started");
 
-        //LoginService loginService = new LoginService();
-        //User user = loginService.register();
-
         Server server = new Server(10001);
         server.start();
 
-        //user.buyCards();
+        // LoginService loginService = new LoginService();
+        // User user = loginService.register();
+
+        // user.buyCards();
     }
 }

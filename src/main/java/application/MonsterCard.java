@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class MonsterCard extends Card{
 
+    // should probably turn entire class into enum for "Card" at some point in the future instead of using inheritance
+
     public int health;
 
     public String elementType;
@@ -11,6 +13,7 @@ public class MonsterCard extends Card{
 
     MonsterCard(){
 
+        // mockup of card stats for now until further integration of CURl script in the future
         Random rand = new Random();
         int randomElement = rand.nextInt(3);
         int randomMonster = rand.nextInt(6);
