@@ -4,30 +4,18 @@ import application.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import server.http.ContentType;
 import server.http.HttpStatus;
-import server.repositories.UserRepository;
+import server.repositories.PackagesRepository;
 
-public class UserService implements Service{
+public class PackagesService implements Service {
+
+    PackagesRepository repository = new PackagesRepository();
+
     @Override
     public Response handleRequest(Request request) {
         String method = String.valueOf(request.getMethod());
 
-        UserRepository userRepository = new UserRepository();
-
         if(method.equals("POST")) {
             try {
-
-                ObjectMapper objectMapper = new ObjectMapper();
-                User user = objectMapper.readValue(request.getBody(), User.class);
-
-
-                if(!userRepository.checkUser(user)) {
-                    userRepository.createUser(user);
-                    Response response = new Response(HttpStatus.CREATED, ContentType.JSON, request.getBody());
-                    return response;
-                } else {
-                    Response response = new Response(HttpStatus.CONFLICT, ContentType.JSON, "User already exists");
-                    return response;
-                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -39,5 +27,6 @@ public class UserService implements Service{
             Response response = new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, request.getBody());
             return response;
         }
+        return null;
     }
 }

@@ -4,14 +4,15 @@ import application.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import server.http.ContentType;
 import server.http.HttpStatus;
-import server.repositories.UserRepository;
+import server.repositories.SessionsRepository;
 
-public class UserService implements Service{
+public class SessionsService implements Service{
+
+    SessionsRepository sessionsRepository = new SessionsRepository();
+
     @Override
     public Response handleRequest(Request request) {
         String method = String.valueOf(request.getMethod());
-
-        UserRepository userRepository = new UserRepository();
 
         if(method.equals("POST")) {
             try {
@@ -19,13 +20,11 @@ public class UserService implements Service{
                 ObjectMapper objectMapper = new ObjectMapper();
                 User user = objectMapper.readValue(request.getBody(), User.class);
 
-
-                if(!userRepository.checkUser(user)) {
-                    userRepository.createUser(user);
-                    Response response = new Response(HttpStatus.CREATED, ContentType.JSON, request.getBody());
+                if (sessionsRepository.loginUser(user)) {
+                    Response response = new Response(HttpStatus.OK, ContentType.JSON, request.getBody());
                     return response;
                 } else {
-                    Response response = new Response(HttpStatus.CONFLICT, ContentType.JSON, "User already exists");
+                    Response response = new Response(HttpStatus.CONFLICT, ContentType.JSON, "Login failed");
                     return response;
                 }
 

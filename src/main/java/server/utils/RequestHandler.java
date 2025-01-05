@@ -2,9 +2,7 @@ package server.utils;
 
 import server.http.ContentType;
 import server.http.HttpStatus;
-import server.server.Request;
-import server.server.Response;
-import server.server.UserService;
+import server.server.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,9 +39,27 @@ public class RequestHandler implements Runnable {
             } else {
                 String pathParts = String.valueOf(request.getPathParts());
 
-                if(pathParts.equals("[users]")){
+                /*if(pathParts.indexOf('/') != -1){
+
+                } else {
+
+                }*/
+                if (pathParts.equals("[users]")){
                     UserService userService = new UserService();
                     this.router.addService("/users", userService);
+
+                    response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
+                    printWriter.write(response.get());
+                } else if (pathParts.equals("[sessions]")){
+                    SessionsService sessionsService = new SessionsService();
+                    this.router.addService("/sessions", sessionsService);
+
+                    response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
+                    printWriter.write(response.get());
+                } else if (pathParts.equals("[packages]")){
+                    PackagesService packagesService = new PackagesService();
+                    this.router.addService("/packages", packagesService);
+
                     response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
                     printWriter.write(response.get());
                 }

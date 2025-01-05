@@ -12,10 +12,5 @@ public class Main {
 
         Server server = new Server(10001);
         server.start();
-
-        // LoginService loginService = new LoginService();
-        // User user = loginService.register();
-
-        // user.buyCards();
     }
 }
