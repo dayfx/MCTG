@@ -10,6 +10,9 @@ public class User {
     @JsonProperty("Password")
     private String password;
 
+    @JsonProperty("Token")
+    private String token;
+
     public User(){
 
     }
@@ -22,6 +25,10 @@ public class User {
         return password;
     }
 
+    public String getToken() {
+        return token;
+    }
+
     public void setUsername(String username) {
        this.username = username;
     }
@@ -30,9 +37,14 @@ public class User {
         this.password = password;
     }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.token = token;
     }
 
 }

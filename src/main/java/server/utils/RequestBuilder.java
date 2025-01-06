@@ -22,6 +22,9 @@ public class RequestBuilder {
             line = bufferedReader.readLine();
             while (!line.isEmpty()) {
                 request.getHeaderMap().ingest(line);
+                if(line.startsWith("Authorization: ")){
+                    request.setToken(line);
+                }
                 line = bufferedReader.readLine();
             }
 

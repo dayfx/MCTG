@@ -13,6 +13,7 @@ public class Request {
     private String params;
     private HeaderMap headerMap =  new HeaderMap();
     private String body;
+    private String token;
 
     public String getServiceRoute(){
         if (this.pathParts == null ||
@@ -81,6 +82,15 @@ public class Request {
     public HeaderMap getHeaderMap() {
         return headerMap;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
 
     public void setHeaderMap(HeaderMap headerMap) {
         this.headerMap = headerMap;
