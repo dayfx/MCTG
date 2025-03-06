@@ -54,6 +54,9 @@ public class UserRepository {
                 userData.append("Password: ").append(resultSet.getString("password")).append("\n");
                 userData.append("Coins: ").append(resultSet.getInt("coins")).append("\n");
                 userData.append("Token: ").append(resultSet.getString("token")).append("\n");
+                userData.append("Name: ").append(resultSet.getString("name")).append("\n");
+                userData.append("Bio: ").append(resultSet.getString("bio")).append("\n");
+                userData.append("Image: ").append(resultSet.getString("image")).append("\n");
             }
 
             connection.close();
@@ -64,27 +67,6 @@ public class UserRepository {
         return userData.toString();
     }
 
-  /*  public boolean checkToken(String token){
-
-        try {
-            Connection connection = databaseConnection.connect();
-            String query = "SELECT COUNT(*) FROM users WHERE token = ?";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, user.getToken());
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if(resultSet.next()){
-                return resultSet.getInt(1) > 0;
-            }
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-        return false;
-    }
-   */
 
     public void createUser(User user) {
 
@@ -105,4 +87,27 @@ public class UserRepository {
             e.printStackTrace();
         }
     }
+
+    public void updateUser(User user, String extractedName){
+        try {
+            Connection connection = databaseConnection.connect();
+            String query = "UPDATE users SET name = ?, bio = ?, image = ? WHERE username = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getBio());
+            preparedStatement.setString(3, user.getImage());
+            preparedStatement.setString(4, extractedName);
+
+            preparedStatement.execute();
+
+            connection.close();
+
+            System.out.println("User updated successfully.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
+

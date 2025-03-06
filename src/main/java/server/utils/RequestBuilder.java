@@ -25,6 +25,9 @@ public class RequestBuilder {
                 if(line.startsWith("Authorization: ")){
                     request.setToken(line);
                 }
+                if (line.startsWith("Content-Type: ")) {
+                    request.setContentType(line.split(": ")[1]);  // store content type in request
+                }
                 line = bufferedReader.readLine();
             }
 

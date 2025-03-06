@@ -13,6 +13,14 @@ public class User {
     @JsonProperty("Token")
     private String token;
 
+    @JsonProperty("Bio")
+    private String bio;
+
+    @JsonProperty("Image")
+    private String image;
+
+    @JsonProperty("Name") // Name, NOT Username for JSON Body for user data requests (CURL line 264...)
+    private String name;
     public User(){
 
     }
@@ -27,6 +35,30 @@ public class User {
 
     public String getToken() {
         return token;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public void setUsername(String username) {
@@ -46,5 +78,4 @@ public class User {
         this.password = password;
         this.token = token;
     }
-
 }

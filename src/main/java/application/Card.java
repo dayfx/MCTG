@@ -4,34 +4,37 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Card {
 
-    @JsonProperty("packageid")
-    private String packageid;
+    private int packageID;
 
-    @JsonProperty("id")
+    @JsonProperty("Id")
     private String id;
 
-    @JsonProperty("cardName")
-    public String cardName;
+    @JsonProperty("Name")
+    private String cardName;
 
-    @JsonProperty("damage")
-    public  int damage;
-
-    @JsonProperty("cardType")
-    public String cardType;
+    @JsonProperty("Damage")
+    private double damage;
 
     public Card(){
 
     }
 
-    public String getPackageid() {
-        return this.packageid;
+    public Card(String id, String name, double damage, int packageId) {
+        this.id = id;
+        this.cardName = name;
+        this.damage = damage;
+        this.packageID = packageId;
+    }
+
+    public int getPackageid() {
+        return this.packageID;
     }
 
     public String getId(){
         return this.id;
     }
 
-    public int getDamage(){
+    public double getDamage(){
         return this.damage;
     }
 
@@ -39,14 +42,8 @@ public class Card {
         return this.cardName;
     }
 
-    public String getCardType() {
-        return this.cardType;
-    }
-
-
-
-    public void setPackageid(String packageid) {
-        this.packageid = packageid;
+    public void setPackageid(int packageid) {
+        this.packageID = packageid;
     }
 
     public void setId(String id){
@@ -57,13 +54,10 @@ public class Card {
         this.cardName = s;
     }
 
-    public void setDamage(int damage){
+    public void setDamage(double damage){
         this.damage = damage;
     }
 
-    public void setCardType(String cardType) {
-        this.cardType = cardType;
-    }
 
 
 

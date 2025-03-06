@@ -14,6 +14,7 @@ public class Request {
     private HeaderMap headerMap =  new HeaderMap();
     private String body;
     private String token;
+    private String contentType;
 
     public String getServiceRoute(){
         if (this.pathParts == null ||
@@ -89,6 +90,14 @@ public class Request {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
 

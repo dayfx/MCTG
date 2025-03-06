@@ -40,11 +40,6 @@ public class RequestHandler implements Runnable {
                 String pathParts = String.valueOf(request.getPathParts());
                 System.out.println(pathParts);
 
-                /*if(pathParts.indexOf('/') != -1){
-
-                } else {
-
-                }*/
                 if (pathParts.equals("[users]")){
                     UserService userService = new UserService();
                     this.router.addService("/users", userService);
@@ -63,6 +58,18 @@ public class RequestHandler implements Runnable {
 
                     response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
                     printWriter.write(response.get());
+                } else if (pathParts.equals("[transactions, packages]")){ //hardcoded because i cant get any other solution to work.
+                    TransactionsService transactionsService = new TransactionsService();
+                    this.router.addService("/transactions", transactionsService);
+
+                    response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
+                    printWriter.write(response.get());
+                } else if (pathParts.equals("[cards]")){ //hardcoded because i cant get any other solution to work.
+                    PackagesService packagesService = new PackagesService();
+                    this.router.addService("/cards", packagesService);
+
+                    response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
+                    printWriter.write(response.get());
                 } else if (pathParts.equals("[users, kienboec]")){ //hardcoded because i cant get any other solution to work.
                     UserService userService = new UserService();
                     this.router.addService("/users", userService);
@@ -70,6 +77,12 @@ public class RequestHandler implements Runnable {
                     response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
                     printWriter.write(response.get());
                 } else if (pathParts.equals("[users, altenhof]")){ //hardcoded because i cant get any other solution to work.
+                    UserService userService = new UserService();
+                    this.router.addService("/users", userService);
+
+                    response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
+                    printWriter.write(response.get());
+                } else if (pathParts.equals("[users, someGuy]")){ //i rly don't like this but no time to fix; hardcoded because i cant get any other solution to work.
                     UserService userService = new UserService();
                     this.router.addService("/users", userService);
 
