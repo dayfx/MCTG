@@ -39,7 +39,6 @@ public class UserRepository {
         try {
             Connection connection = databaseConnection.connect();
 
-
             String query = "SELECT * FROM users WHERE username = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 

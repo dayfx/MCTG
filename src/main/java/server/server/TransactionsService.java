@@ -8,6 +8,7 @@ import server.http.HttpStatus;
 import server.repositories.TransactionsRepository;
 
 import java.util.List;
+import java.util.Map;
 
 public class TransactionsService implements Service {
 
@@ -36,11 +37,15 @@ public class TransactionsService implements Service {
 
                 System.out.println("Purchaser: " + purchaser); // check who wants to purchase a package
 
-                int randomPackageID = transactionsRepository.getRandomPackageID(); // get a random package ID
+                int randomPackageID = transactionsRepository.getRandomPackageID(); // get a random package ID (only useful now to check if there's even any left)
+
+                ObjectMapper objectMapper = new ObjectMapper();
+                Map<String, Integer> requestBody = objectMapper.readValue(request.getBody(), new TypeReference<Map<String, Integer>>() {}); //get package id from json body
+                int packageID = requestBody.get("packageID"); // get packageID
 
                 if(randomPackageID > 0) { // if there are packages left to buy
                     if(transactionsRepository.checkCoins(purchaser)){ // if the purchaser has more or equal to 5 coins to buy a package
-                        transactionsRepository.purchaseCards(randomPackageID, purchaser);  // assign the purchaser to the owner column of the cards and reduce their coins by 5
+                        transactionsRepository.purchaseCards(packageID, purchaser);  // assign the purchaser to the owner column of the cards and reduce their coins by 5
                     } else {
                         Response response = new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "Not enough money");
                         return response;

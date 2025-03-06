@@ -12,7 +12,7 @@ public class TransactionsRepository {
 
     DatabaseConnection databaseConnection = new DatabaseConnection();
 
-    public void purchaseCards(int randomPackage, String purchaser) {
+    public void purchaseCards(int wantedPackage, String purchaser) {
         // Step 1: Select a random packageID
 
         try {
@@ -22,7 +22,7 @@ public class TransactionsRepository {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
             preparedStatement.setString(1, purchaser);
-            preparedStatement.setInt(2, randomPackage);
+            preparedStatement.setInt(2, wantedPackage);
 
             preparedStatement.execute();
 

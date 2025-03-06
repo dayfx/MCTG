@@ -92,20 +92,20 @@ if %pauseFlag%==1 pause
 
 REM --------------------------------------------------
 echo 4) acquire packages kienboec
-curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer kienboec-mtcgToken" -d ""
+curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer kienboec-mtcgToken" -d "{\"packageID\": 1}"
 echo "Should return HTTP 201"
 echo.
-curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer kienboec-mtcgToken" -d ""
+curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer kienboec-mtcgToken" -d "{\"packageID\": 2}"
 echo "Should return HTTP 201"
 echo.
-curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer kienboec-mtcgToken" -d ""
+curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer kienboec-mtcgToken" -d "{\"packageID\": 3}"
 echo "Should return HTTP 201"
 echo.
-curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer kienboec-mtcgToken" -d ""
+curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer kienboec-mtcgToken" -d "{\"packageID\": 4}"
 echo "Should return HTTP 201"
 echo.
 echo should fail (no money):
-curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer kienboec-mtcgToken" -d ""
+curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer kienboec-mtcgToken" -d "{\"packageID\": 5}"
 echo "Should return HTTP 4xx - Not enough money"
 echo.
 echo.
@@ -114,14 +114,14 @@ if %pauseFlag%==1 pause
 
 REM --------------------------------------------------
 echo 5) acquire packages altenhof
-curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer altenhof-mtcgToken" -d ""
+curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer altenhof-mtcgToken" -d "{\"packageID\": 5}"
 echo "Should return HTTP 201"
 echo.
-curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer altenhof-mtcgToken" -d ""
+curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer altenhof-mtcgToken" -d "{\"packageID\": 6}"
 echo "Should return HTTP 201"
 echo.
 echo should fail (no package):
-curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer altenhof-mtcgToken" -d ""
+curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer altenhof-mtcgToken" -d "{\"packageID\": 7}"
 echo "Should return HTTP 4xx - No packages available"
 echo.
 echo.
@@ -145,14 +145,14 @@ if %pauseFlag%==1 pause
 
 REM --------------------------------------------------
 echo 7) acquire newly created packages altenhof
-curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer altenhof-mtcgToken" -d ""
+curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer altenhof-mtcgToken" -d "{\"packageID\": 7}"
 echo "Should return HTTP 201"
 echo.
-curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer altenhof-mtcgToken" -d ""
+curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer altenhof-mtcgToken" -d "{\"packageID\": 8}"
 echo "Should return HTTP 201"
 echo.
 echo should fail (no money):
-curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer altenhof-mtcgToken" -d ""
+curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer altenhof-mtcgToken" -d "{\"packageID\": 9}"
 echo "Should return HTTP 4xx - Not enough money"
 echo.
 echo.
