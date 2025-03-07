@@ -75,10 +75,15 @@ public class BattlesRepository {
                         .append("Damage: ").append(card.getDamage()).append("\n\n");
             }
 
+            Random random = new Random(); // to determine random cards and chaos burst chance
+
+            // UNIQUE FEATURE (CHAOS BURST)
+            double chaosChance = 0.10 + (random.nextDouble() * 0.20); // random CHAOS BURST chance for this battle between 10% and 30%
+            battlelog.append("CHAOS BURST chance for this battle: ").append(String.format("%.2f", chaosChance * 100)).append("% ( 10% - 30% )\n\n"); // show this battle's chaos burst chance
+            // ----------------------------
             battlelog.append("Battle begins between ").append(player1).append(" and ").append(player2).append("\n\n");
 
             int rounds = 0;
-            Random random = new Random(); // to determine random cards
 
             while(!player1Deck.isEmpty() && !player2Deck.isEmpty() && rounds < 100) {
                 rounds++; //increment round counter
@@ -92,10 +97,11 @@ public class BattlesRepository {
                 battlelog.append(player1).append(" plays ").append(cardPlayer1.getCardName()).append(" (").append(cardPlayer1.getDamage()).append(" damage)\n");
                 battlelog.append(player2).append(" plays ").append(cardPlayer2.getCardName()).append(" (").append(cardPlayer2.getDamage()).append(" damage)\n\n");
 
+                double currentRoundDamagePlayer1 = cardPlayer1.getDamage(); // temporary var to calculate damage for this round specifically
+                double currentRoundDamagePlayer2 = cardPlayer2.getDamage(); // temporary var to calculate damage for this round specifically
+
                 // NO SPECIALTIES HAVE BEEN IMPLEMENTED UP TO THIS POINT
                 if (isSpell(cardPlayer1.getCardName()) || isSpell(cardPlayer2.getCardName())){ // CHECK IF EITHER CARD IS A SPELL (no specialties)
-                    double currentRoundDamagePlayer1 = cardPlayer1.getDamage(); // temporary var to calculate damage for this round specifically
-                    double currentRoundDamagePlayer2 = cardPlayer2.getDamage(); // temporary var to calculate damage for this round specifically
 
                     // if player 1's card is a spell, calculate its damage onto player 2's card
                     if (isSpell(cardPlayer1.getCardName())) {
@@ -104,6 +110,22 @@ public class BattlesRepository {
                     // if player 2's card is a spell, calculate its damage onto player 1's card
                     if (isSpell(cardPlayer2.getCardName())) {
                         currentRoundDamagePlayer2 = applyElementEffect(cardPlayer2, cardPlayer1);
+                    }
+
+                    // UNIQUE FEATURE (CHAOS BURST)
+                    if (random.nextDouble() < chaosChance) {
+                        int chaosBurstPlayer1 = random.nextInt(21) + 10; // random damage boost between 10-30
+                        currentRoundDamagePlayer1 += chaosBurstPlayer1;
+
+                        battlelog.append("CHAOS BURST! ").append(player1).append("'s ").append(cardPlayer1.getCardName()).append(" gains an additional ").append(chaosBurstPlayer1).append(" damage this round!\n\n");
+                    }
+
+                    // UNIQUE FEATURE (CHAOS BURST)
+                    if (random.nextDouble() < chaosChance) {
+                        int chaosBurstPlayer2 = random.nextInt(21) + 10; // random damage boost between 10-30
+                        currentRoundDamagePlayer2 += chaosBurstPlayer2;
+
+                        battlelog.append("CHAOS BURST! ").append(player2).append("'s ").append(cardPlayer2.getCardName()).append(" gains an additional ").append(chaosBurstPlayer2).append(" damage this round!\n\n");
                     }
 
                     // after new damage is calculated, compare damage like usual (duplicated code i guess but probably no time to optimise sadly
@@ -121,14 +143,31 @@ public class BattlesRepository {
                         battlelog.append("Draw! No cards swapped!\n\n");
                     }
                 } else { // IF NEITHER CARD IS A SPELL, PROCEED AS USUAL (no specialties)
+
+                    // UNIQUE FEATURE (CHAOS BURST)
+                    if (random.nextDouble() < chaosChance) {
+                        int chaosBurstPlayer1 = random.nextInt(21) + 10; // random damage boost between 10-30
+                        currentRoundDamagePlayer1 += chaosBurstPlayer1;
+
+                        battlelog.append("CHAOS BURST! ").append(player1).append("'s ").append(cardPlayer1.getCardName()).append(" gains an additional ").append(chaosBurstPlayer1).append(" damage this round!\n\n");
+                    }
+
+                    // UNIQUE FEATURE (CHAOS BURST)
+                    if (random.nextDouble() < chaosChance) {
+                        int chaosBurstPlayer2 = random.nextInt(21) + 10; // random damage boost between 10-30
+                        currentRoundDamagePlayer2 += chaosBurstPlayer2;
+
+                        battlelog.append("CHAOS BURST! ").append(player2).append("'s ").append(cardPlayer2.getCardName()).append(" gains an additional ").append(chaosBurstPlayer2).append(" damage this round!\n\n");
+                    }
+
                     // compare card's damage and transfer cards
-                    if (cardPlayer1.getDamage() > cardPlayer2.getDamage()) {
+                    if (currentRoundDamagePlayer1 > currentRoundDamagePlayer2) {
                         battlelog.append("xx ").append(player1).append(" wins the round and takes ").append(cardPlayer2.getCardName()).append(" from ").append(player2).append(" xx\n");
                         player2Deck.remove(cardPlayer2); // remove card from round loser's deck
                         player1Deck.add(cardPlayer2);    // add card to round winner's deck
 
                         battlelog.append(player2).append(" now has ").append(player2Deck.size()).append(" cards left in their deck.\n\n"); // show number of left cards in deck
-                    } else if (cardPlayer2.getDamage() > cardPlayer1.getDamage()) {
+                    } else if (currentRoundDamagePlayer2 > currentRoundDamagePlayer1) {
                         battlelog.append("xx ").append(player2).append(" wins the round and takes ").append(cardPlayer1.getCardName()).append(" from ").append(player1).append(" xx\n");
                         player1Deck.remove(cardPlayer1); // remove card from round loser's deck
                         player2Deck.add(cardPlayer1);    // add card to round winner's deck
@@ -159,12 +198,12 @@ public class BattlesRepository {
 
     // HELPER METHODS BELOW
 
-    // Method to determine if the card is a Spell
+    // check if card's a spell
     private boolean isSpell(String cardName) {
         return cardName.contains("Spell");
     }
 
-    // Method to derive the element from the card's name
+    // check a card's element
     private String getElement(String cardName) {
         if (cardName.contains("Water")) {
             return "water";
