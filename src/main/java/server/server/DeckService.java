@@ -74,7 +74,6 @@ public class DeckService implements Service {
 
                 // split up token for name
 
-
                 System.out.println(request.getToken());
                 String token = request.getToken();
                 String tokenPart = token.substring("Authorization: Bearer ".length());
@@ -82,7 +81,7 @@ public class DeckService implements Service {
                 String user = parts[0];
 
                 System.out.println(pathParts);
-                if(request.getParams().equals("format=plain")){
+                if("format=plain".equals(request.getParams())){
                     String content = deckRepository.displayDeckPlain(user);
 
                     Response response = new Response(HttpStatus.OK, ContentType.PLAIN_TEXT, content);

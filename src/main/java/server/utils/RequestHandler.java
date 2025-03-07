@@ -40,6 +40,8 @@ public class RequestHandler implements Runnable {
                 String pathParts = String.valueOf(request.getPathParts());
                 System.out.println(pathParts);
 
+                BattlesService battlesService = new BattlesService(); //singular battle instance to make sure both users end up in the same battle?
+
                 if (pathParts.equals("[users]")){
                     UserService userService = new UserService();
                     this.router.addService("/users", userService);
@@ -91,6 +93,12 @@ public class RequestHandler implements Runnable {
                 } else if (pathParts.equals("[users, someGuy]")){ //i rly don't like this but no time to fix; hardcoded because i cant get any other solution to work.
                     UserService userService = new UserService();
                     this.router.addService("/users", userService);
+
+                    response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
+                    printWriter.write(response.get());
+                } else if (pathParts.equals("[battles]")){
+                    // battleService instance up above
+                    this.router.addService("/battles", battlesService);
 
                     response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
                     printWriter.write(response.get());
